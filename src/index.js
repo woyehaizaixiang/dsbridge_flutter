@@ -10,7 +10,21 @@ function DsBridge () {
       data: JSON.stringify(data),
       callBack: `window.dsBridgeEventObj.callBack${variableNum}`
     })
-    DsBridgeApp.postMessage(postData)
+    try {
+      DsBridgeApp.postMessage(postData)
+    } catch (_) {
+
+    }
+  }
+  // add alert
+  let alertNative = window.alert
+  window.alert = function (e) {
+    alertNative(e)
+    try {
+      Alert.postMessage(e)
+    } catch (_) {
+
+    }
   }
 }
 
